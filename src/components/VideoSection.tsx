@@ -5,7 +5,11 @@ import surpriseVideo from "../assets/surprise.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const VideoSection: React.FC = () => {
+interface VideoSectionProps {
+  onNavigate: () => void;
+}
+
+const VideoSection: React.FC<VideoSectionProps> = ({ onNavigate }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -189,10 +193,14 @@ const VideoSection: React.FC = () => {
 
         {/* Continue indicator */}
         <div className="mt-12">
-          <p className="text-white/70 text-lg mb-4">
-            Continue scrolling for the final message... 👇
-          </p>
-          <div className="animate-bounce text-3xl">⬇️</div>
+          <button
+            onClick={onNavigate}
+            className="birthday-button birthday-button-glow"
+          >
+            <span className="relative z-10 flex items-center justify-center gap-2">
+              Final Surprise 🎉
+            </span>
+          </button>
         </div>
       </div>
     </div>

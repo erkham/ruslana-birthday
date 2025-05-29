@@ -1,19 +1,11 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-export default defineConfig({
-    plugins: [react()],
-    base: "/ruslana-birthday/",
-    build: {
-        outDir: "dist",
-        assetsDir: "assets",
-        sourcemap: false,
-        rollupOptions: {
-            output: {
-                manualChunks: {
-                    vendor: ["react", "react-dom"],
-                    gsap: ["gsap"],
-                },
-            },
-        },
-    },
-});
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
