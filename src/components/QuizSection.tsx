@@ -446,7 +446,7 @@ const QuizSection: React.FC<QuizSectionProps> = ({ onNavigate }) => {
     <div ref={containerRef} className="section">
       <div className="max-w-4xl mx-auto w-full quiz-content">
         {/* Header */}
-        <div className="text-center mb-12 border-b border-white/20 pb-4">
+        <div className="text-center mb-12 pb-4">
           <h2
             className={`quiz-title text-5xl font-bold text-white mb-4 dancing-script ${
               !isAnimationReady ? "quiz-title-initial" : ""
