@@ -3,7 +3,6 @@ import { gsap } from "gsap";
 import IntroSection from "./components/IntroSection";
 import QuizSection from "./components/QuizSection";
 import GiftSection from "./components/GiftSection";
-import VideoSection from "./components/VideoSection";
 import FinalSection from "./components/FinalSection";
 import "./App.css";
 
@@ -18,8 +17,6 @@ export default function App() {
     intro: "linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%)",
     quiz: "linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 25%, #45b7d1 50%, #96ceb4 75%, #feca57 100%)",
     gift: "linear-gradient(135deg, #f093fb 0%, #f5576c 25%, #ff9a9e 50%, #fecfef 75%, #fbc2eb 100%)",
-    video:
-      "linear-gradient(135deg, #43e97b 0%, #38f9d7 25%, #a8edea 50%, #d0e8f2 75%, #f5f7fa 100%)",
     final:
       "linear-gradient(135deg, #fa709a 0%, #fee140 25%, #ffa726 50%, #ff7043 75%, #e91e63 100%)",
   };
@@ -340,15 +337,7 @@ export default function App() {
         style={{ display: currentSection === "gift" ? "flex" : "none" }}
         className="section-container"
       >
-        <GiftSection onNavigate={() => navigateToSection("video")} />
-      </div>
-
-      <div
-        data-section="video"
-        style={{ display: currentSection === "video" ? "flex" : "none" }}
-        className="section-container"
-      >
-        <VideoSection onNavigate={() => navigateToSection("final")} />
+        <GiftSection onNavigate={() => navigateToSection("final")} />
       </div>
 
       <div

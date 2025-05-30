@@ -195,16 +195,12 @@ const FinalSection: React.FC = () => {
               about you!
             </p>
 
-            <p className="text-2xl font-semibold gradient-text">
-              Te iubesc mult! 💕
-            </p>
-
             <p className="text-xl text-white/80">
-              🇺🇦 З Днем народження, кохана! 💙💛
+              🇺🇦 З Днем народження, мій пиріжечок! 💙💛
               <br />
-              🇩🇪 Alles Gute zum Geburtstag, meine Liebe! 🎂
+              🇩🇪 Alles Gute zum Geburtstag, mein kleines Würstchen! 🎂
               <br />
-              🇬🇧 Happy Birthday, My Love! 🎉
+              🇬🇧 Happy Birthday, My Sweetie! 🎉
             </p>
           </div>
 
@@ -214,10 +210,7 @@ const FinalSection: React.FC = () => {
         {/* Signature */}
         <div className="text-center">
           <p className="text-2xl text-white/80 dancing-script mb-4">
-            Always yours,
-          </p>
-          <p className="text-3xl font-bold gradient-text dancing-script">
-            Your Loving Partner 💕
+            Always yours, Ervin...
           </p>
         </div>
 
@@ -227,11 +220,14 @@ const FinalSection: React.FC = () => {
             Made with 💖 for your special day
           </p>
           <p className="text-white font-semibold text-xl">
-            {new Date().toLocaleDateString("en-US", {
+            {new Date('2025-05-30').toLocaleDateString("en-US", {
               year: "numeric",
               month: "long",
               day: "numeric",
             })}
+          </p>
+          <p className="text-white font-semibold text-xl">
+            by Ervin :)
           </p>
         </div>
       </div>

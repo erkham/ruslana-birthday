@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import { gsap } from "gsap";
-
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import surpriseVideo from "../assets/surprise.mp4";
+import giftImage from "../assets/gift.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,6 +13,7 @@ interface GiftSectionProps {
 const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const giftBoxRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isOpened, setIsOpened] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
 
@@ -33,28 +33,12 @@ const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
 
     tl.fromTo(
       ".gift-title",
-      {
-        opacity: 0,
-        y: -50,
-        scale: 0.8,
-      },
-
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1,
-        ease: "back.out(1.7)",
-      }
+      { opacity: 0, y: -50, scale: 0.8 },
+      { opacity: 1, y: 0, scale: 1, duration: 1, ease: "back.out(1.7)" }
     )
       .fromTo(
         giftBox,
-        {
-          opacity: 0,
-          scale: 0,
-          rotation: -180,
-        },
-
+        { opacity: 0, scale: 0, rotation: -180 },
         {
           opacity: 1,
           scale: 1,
@@ -62,23 +46,12 @@ const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
           duration: 1.5,
           ease: "elastic.out(1, 0.3)",
         },
-
         "-=0.5"
       )
       .fromTo(
         ".gift-instruction",
-        {
-          opacity: 0,
-          y: 30,
-        },
-
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-        },
-
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" },
         "-=0.5"
       );
 
@@ -90,41 +63,56 @@ const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
       ease: "power2.inOut",
     });
 
-    const sparkles = container.querySelectorAll(".sparkle");
+    gsap.utils
+      .toArray(".emoji-orbit")
+      .forEach((emoji: unknown, index: number) => {
+        const element = emoji as Element;
+        const radius = 160;
+        const angle = (index / 6) * Math.PI * 2;
 
-    sparkles.forEach((sparkle, index) => {
-      gsap.to(sparkle, {
-        scale: Math.random() * 0.5 + 0.5,
-        rotation: 360,
-        duration: Math.random() * 2 + 1,
-        repeat: -1,
-        yoyo: true,
-        ease: "power2.inOut",
-        delay: index * 0.2,
+        gsap.to(element, {
+          duration: 8 + Math.random() * 3,
+          repeat: -1,
+          ease: "linear",
+          motionPath: {
+            path: `M${radius * Math.cos(angle)},${radius * Math.sin(angle)}
+                A${radius},${radius} 0 1,1 ${-radius * Math.cos(angle)},${
+              -radius * Math.sin(angle)
+            }
+                A${radius},${radius} 0 1,1 ${radius * Math.cos(angle)},${
+              radius * Math.sin(angle)
+            }`,
+            alignOrigin: [0.5, 0.5],
+            autoRotate: false,
+          },
+        });
+
+        gsap.to(element, {
+          rotation: 360,
+          duration: 3 + Math.random() * 2,
+          repeat: -1,
+          ease: "linear",
+        });
       });
-    });
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-    };
+    return () => ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
   }, []);
+
+  useEffect(() => {
+    if (showVideo && videoRef.current) {
+      videoRef.current.volume = 0.5;
+    }
+  }, [showVideo]);
 
   const handleGiftClick = () => {
     if (isOpened) return;
-
     setIsOpened(true);
     const giftBox = giftBoxRef.current;
     if (!giftBox) return;
-
     createConfetti();
 
     const tl = gsap.timeline();
-
-    tl.to(giftBox, {
-      scale: 1.2,
-      duration: 0.3,
-      ease: "power2.out",
-    })
+    tl.to(giftBox, { scale: 1.2, duration: 0.3, ease: "power2.out" })
       .to(giftBox, {
         rotationY: 360,
         scale: 0.8,
@@ -132,26 +120,13 @@ const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
         ease: "power2.inOut",
       })
       .to(
-        ".gift-lid",
-        {
-          y: -100,
-          rotation: 45,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-
+        ".gift-image",
+        { opacity: 0, duration: 0.6, ease: "power2.out" },
         "-=0.4"
       )
       .to(
         ".gift-content",
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.8,
-          ease: "elastic.out(1, 0.3)",
-        },
-
+        { scale: 1, opacity: 1, duration: 0.8, ease: "elastic.out(1, 0.3)" },
         "-=0.2"
       )
       .call(() => {
@@ -174,23 +149,10 @@ const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
 
     for (let i = 0; i < 50; i++) {
       const confetti = document.createElement("div");
-      confetti.style.cssText = ` position: absolute;
-      width: 10px;
-      height: 10px;
-
-      background: $ {
+      confetti.style.cssText = `position: absolute; width: 10px; height: 10px; background: ${
         colors[Math.floor(Math.random() * colors.length)]
-      }
-
-      ;
-      left: 50%;
-      top: 50%;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 1000;
-      `;
+      }; left: 50%; top: 50%; border-radius: 50%; pointer-events: none; z-index: 1000;`;
       container.appendChild(confetti);
-
       gsap.to(confetti, {
         x: (Math.random() - 0.5) * 800,
         y: (Math.random() - 0.5) * 600,
@@ -206,121 +168,84 @@ const GiftSection: React.FC<GiftSectionProps> = ({ onNavigate }) => {
 
   return (
     <div ref={containerRef} className="section relative overflow-hidden">
-      {" "}
       {!showVideo ? (
         <div className="text-center">
-          {" "}
           <h2 className="gift-title text-5xl font-bold text-white mb-8 dancing-script">
-            {" "}
-            🎁 Your Special Surprise ! 🎁{" "}
-          </h2>{" "}
+            🎁 Your Special Surprise ! 🎁
+          </h2>
           <p className="gift-instruction text-xl text-white/90 mb-12 max-w-2xl mx-auto">
-            {" "}
             You've proven your amazing language skills! Now it's time for your
-            special gift...{" "}
-          </p>{" "}
-          {/* Gift Box */}
+            special gift...
+          </p>
           <div
             ref={giftBoxRef}
             onClick={handleGiftClick}
             className="gift-box relative inline-block cursor-pointer transform-gpu"
           >
-            {" "}
-            {/* Gift Box Base */}
             <div className="relative">
-              {" "}
-              <div className="w-48 h-48 bg-gradient-to-br from-red-400 to-red-600 rounded-2xl shadow-2xl relative overflow-hidden">
-                {" "}
-                {/* Gift pattern */}
-                <div className="absolute inset-0 bg-gradient-to-br from-red-300/50 to-transparent"></div>{" "}
-                {/* Ribbon vertical */}
-                <div className="absolute left-1/2 top-0 bottom-0 w-8 bg-gradient-to-b from-yellow-300 to-yellow-500 transform -translate-x-1/2"></div>{" "}
-                {/* Ribbon horizontal */}
-                <div className="absolute top-1/2 left-0 right-0 h-8 bg-gradient-to-r from-yellow-300 to-yellow-500 transform -translate-y-1/2"></div>{" "}
-                {/* Gift content (hidden initially) */}
-                <div className="gift-content absolute inset-4 bg-white/20 rounded-xl flex items-center justify-center opacity-0 scale-0">
-                  {" "}
-                  <div className="text-6xl">🎬</div>{" "}
-                </div>{" "}
-              </div>{" "}
-              {/* Gift Lid */}
-              <div className="gift-lid absolute -top-4 left-1/2 transform -translate-x-1/2">
-                {" "}
-                <div className="w-52 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-t-2xl shadow-lg relative">
-                  {" "}
-                  {/* Bow */}
-                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                    {" "}
-                    <div className="w-16 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full relative">
-                      {" "}
-                      <div className="absolute inset-2 bg-gradient-to-br from-yellow-300 to-yellow-500 rounded-full"></div>{" "}
-                      <div className="absolute top-1/2 left-1/2 w-2 h-8 bg-yellow-600 transform -translate-x-1/2 -translate-y-1/2"></div>{" "}
-                    </div>{" "}
-                  </div>{" "}
-                </div>{" "}
-              </div>{" "}
-            </div>{" "}
-            {/* Sparkles around gift */}
-            <div className="sparkle absolute -top-8 -left-8 text-2xl">
-              ✨
-            </div>{" "}
-            <div className="sparkle absolute -top-4 -right-8 text-xl">💫</div>{" "}
-            <div className="sparkle absolute -bottom-4 -left-4 text-2xl">
-              {" "}
-              ⭐{" "}
-            </div>{" "}
-            <div className="sparkle absolute -bottom-8 -right-4 text-xl">
-              {" "}
-              🌟{" "}
-            </div>{" "}
-            <div className="sparkle absolute top-4 -left-12 text-lg">
-              ✨
-            </div>{" "}
-            <div className="sparkle absolute top-8 -right-12 text-lg">💫</div>{" "}
-          </div>{" "}
-          <p className="text-lg text-white/80 mt-8">Click me ! 👆✨</p>{" "}
+              <img
+                src={giftImage}
+                alt="Gift Box"
+                className="gift-image w-[228px] h-[228px] object-contain drop-shadow-2xl"
+                width={228}
+                height={228}
+              />
+              <div className="gift-content absolute inset-0 flex items-center justify-center opacity-0 scale-0">
+                <div className="text-6xl">🎬</div>
+              </div>
+            </div>
+            {["💖", "🎈", "🎉", "🌈", "💫", "🎊"].map((emoji, idx) => (
+              <div
+                key={idx}
+                className="emoji-orbit absolute text-2xl"
+                style={{
+                  left: "50%",
+                  top: "50%",
+                  transform: `translate(-50%, -50%) rotate(${
+                    idx * 60
+                  }deg) translateX(160px)`,
+                }}
+              >
+                {emoji}
+              </div>
+            ))}
+          </div>
+          <p className="text-lg text-white/80 mt-8">Click me ! 👆✨</p>
         </div>
       ) : (
         <div className="text-center">
-          {" "}
           <h2 className="text-5xl font-bold text-white mb-8 dancing-script">
-            {" "}
-            🎬 Special Video 🎭{" "}
-          </h2>{" "}
-          <div className="glass-effect p-8 rounded-3xl max-w-4xl mx-auto">
-            {" "}
+            🎬 Special Video 🎭
+          </h2>
+          <div
+            className="glass-effect p-8 rounded-3xl mx-auto"
+            style={{ width: "70%" }}
+          >
             <div className="aspect-video bg-black rounded-2xl overflow-hidden mb-6">
-              {" "}
-              {/* Actual Video */}
               <video
                 className="w-full h-full object-cover"
                 controls
                 autoPlay
-                muted
-                loop
+                muted={false}
                 playsInline
+                ref={videoRef}
               >
-                {" "}
-                <source src={surpriseVideo} type="video/mp4" /> Your browser
-                does not support the video tag.{" "}
-              </video>{" "}
-            </div>{" "}
+                <source src={surpriseVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
             <p className="text-white text-lg mb-8">
-              {" "}
-              A special message just for you ! 💖 Watch and feel all the love I
-              have for you.{" "}
-            </p>{" "}
+              A special message just for you ! 💖
+            </p>
             <button
               onClick={onNavigate}
               className="birthday-button birthday-button-glow"
             >
-              {" "}
               <span className="relative z-10 flex items-center justify-center gap-2">
-                {" "}
-                Continue the Magic 🎭{" "}
-              </span>{" "}
-            </button>{" "}
-          </div>{" "}
+                Final step of the journey! 🎭
+              </span>
+            </button>
+          </div>
         </div>
       )}
     </div>

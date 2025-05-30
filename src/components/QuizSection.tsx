@@ -43,10 +43,10 @@ const questions: Question[] = [
     question:
       "Which of the following English sentences uses the subjunctive mood correctly?",
     options: [
-      "If I was you, I would go.",
-      "If I were you, I would go.",
-      "If I am you, I would go.",
-      "If I be you, I would go.",
+      " If I was you, I would go.",
+      " If I were you, I would go.",
+      " If I am you, I would go.",
+      " If I be you, I would go.",
     ],
     correct: 1,
     explanation:
@@ -58,10 +58,10 @@ const questions: Question[] = [
   //   question:
   //     'What is the German equivalent of the English idiom "to beat around the bush"?',
   //   options: [
-  //     "Um den heißen Brei herumreden",
-  //     "Die Katze im Sack kaufen",
-  //     "Den Nagel auf den Kopf treffen",
-  //     "Jemandem Honig ums Maul schmieren",
+  //     " Um den heißen Brei herumreden",
+  //     " Die Katze im Sack kaufen",
+  //     " Den Nagel auf den Kopf treffen",
+  //     " Jemandem Honig ums Maul schmieren",
   //   ],
   //   correct: 0,
   //   explanation:
@@ -73,10 +73,10 @@ const questions: Question[] = [
   //   question:
   //     "Which of these English sentences demonstrates a correct use of inversion?",
   //   options: [
-  //     "Never I have seen such chaos.",
-  //     "Rarely she goes out. ",
-  //     "Hardly had he arrived when the phone rang.",
-  //     "Only then he realized his mistake.",
+  //     " Never I have seen such chaos.",
+  //     " Rarely she goes out. ",
+  //     " Hardly had he arrived when the phone rang.",
+  //     " Only then he realized his mistake.",
   //   ],
   //   correct: 2,
   //   explanation:
@@ -87,7 +87,7 @@ const questions: Question[] = [
   //   id: 4,
   //   question:
   //     'Which of the following words is a correct German translation of "sophisticated" in the context of someone being cultured?',
-  //   options: ["Kompliziert", "Ausgereift", "Gebildet", "Verwirrt"],
+  //   options: [" Kompliziert", " Ausgereift", " Gebildet", " Verwirrt"],
   //   correct: 2,
   //   explanation:
   //     "'Gebildet' refers to someone well-educated or cultured, the right translation of 'sophisticated' in this context.",
@@ -98,10 +98,10 @@ const questions: Question[] = [
   //   question:
   //     'What does the English expression "to take something with a grain of salt" mean?',
   //   options: [
-  //     "To believe something completely",
-  //     "To consider something lightly or skeptically",
-  //     "To cook something with caution",
-  //     "To season something carefully",
+  //     " To believe something completely",
+  //     " To consider something lightly or skeptically",
+  //     " To cook something with caution",
+  //     " To season something carefully",
   //   ],
   //   correct: 1,
   //   explanation:
@@ -113,10 +113,10 @@ const questions: Question[] = [
   //   question:
   //     "Which German phrase best conveys the idea of feeling awkward or out of place?",
   //   options: [
-  //     "Sich wie ein Fisch im Wasser fühlen",
-  //     "Sich wie ein Elefant im Porzellanladen fühlen",
-  //     "Sich den Kopf zerbrechen",
-  //     "Da steppt der Bär",
+  //     " Sich wie ein Fisch im Wasser fühlen",
+  //     " Sich wie ein Elefant im Porzellanladen fühlen",
+  //     " Sich den Kopf zerbrechen",
+  //     " Da steppt der Bär",
   //   ],
   //   correct: 1,
   //   explanation:
@@ -126,7 +126,7 @@ const questions: Question[] = [
   // {
   //   id: 7,
   //   question: 'What is the best English synonym for the word "ubiquitous"?',
-  //   options: ["Rare", "Present everywhere", "Unique", "Obsolete"],
+  //   options: [" Rare", " Present everywhere", " Unique", " Obsolete"],
   //   correct: 1,
   //   explanation:
   //     "'Ubiquitous' means something that is present, appearing, or found everywhere.",
@@ -137,10 +137,10 @@ const questions: Question[] = [
   //   question:
   //     'What is the function of the German word "doch" in this sentence: "Du kommst doch mit, oder?"?',
   //   options: [
-  //     "To express doubt",
-  //     "To express contradiction",
-  //     "To reinforce a positive expectation",
-  //     "To add a question",
+  //     " To express doubt",
+  //     " To express contradiction",
+  //     " To reinforce a positive expectation",
+  //     " To add a question",
   //   ],
   //   correct: 2,
   //   explanation:
@@ -151,7 +151,7 @@ const questions: Question[] = [
   //   id: 9,
   //   question:
   //     'Which English word best replaces the phrase "to make something seem less important"?',
-  //   options: ["Undermine", "Downplay", "Overstate", "Elevate"],
+  //   options: [" Undermine", " Downplay", " Overstate", " Elevate"],
   //   correct: 1,
   //   explanation:
   //     "'Downplay' means to make something appear less important than it really is.",
@@ -161,10 +161,10 @@ const questions: Question[] = [
   //   id: 10,
   //   question: 'What does the German expression "Ins Fettnäpfchen treten" mean?',
   //   options: [
-  //     "To step into a muddy puddle",
-  //     "To unintentionally say something embarrassing",
-  //     "To fall in love",
-  //     "To make a lucky guess",
+  //     " To step into a muddy puddle",
+  //     " To unintentionally say something embarrassing",
+  //     " To fall in love",
+  //     " To make a lucky guess",
   //   ],
   //   correct: 1,
   //   explanation:
@@ -446,7 +446,7 @@ const QuizSection: React.FC<QuizSectionProps> = ({ onNavigate }) => {
     <div ref={containerRef} className="section">
       <div className="max-w-4xl mx-auto w-full quiz-content">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 border-b border-white/20 pb-4">
           <h2
             className={`quiz-title text-5xl font-bold text-white mb-4 dancing-script ${
               !isAnimationReady ? "quiz-title-initial" : ""

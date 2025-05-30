@@ -30,7 +30,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onNavigate }) => {
     gsap.set([title, subtitle, heart, button], { opacity: 0, y: 50 });
 
     tl.to(title, {
-      text: "🎉 Happy Birthday, Love! 💖",
+      text: "🎉 Happy Birthday, Ruslana! 💖",
       duration: 2.5,
       ease: "none",
       onStart: () => {
@@ -104,7 +104,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onNavigate }) => {
           ref={subtitleRef}
           className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto"
         >
-          Get ready for an amazing interactive journey filled with surprises,
+          Get ready for an amazing interactive mini-journey filled with surprises,
           games, and lots of love! 🎁✨
         </p>
 
