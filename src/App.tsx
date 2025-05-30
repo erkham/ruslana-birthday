@@ -262,6 +262,8 @@ export default function App() {
         .to(
           "body",
           {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             background: sectionColors[targetSection],
             backgroundAttachment: "fixed",
             duration: 0.6,
